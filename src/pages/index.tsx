@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import { useState } from 'react';
 import { SignInWithTwitch } from '../components/buttons/signInWithTwitch';
 import { GOTYGame } from '../components/cards/gotyGame';
 import { GridGames } from '../components/cards/gridGames';
@@ -49,6 +50,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 };
 
 export default function Home({ gameGOTY, lastGames }) {
+  const LIMIT = 12;
+  const [info, setInfo] = useState({});
+  const [text, setText] = useState('');
+  const [offset, setOffset] = useState(0);
+  const [total, setTotal] = useState(30);
+  const [alertVisible, setAlertVisible] = useState(true);
+
+  function handleAlertVisible() {
+    setAlertVisible(!alertVisible);
+  }
+
   return (
     <div className="bg-bg-image h-screen w-screen bg-no-repeat bg-cover bg-left-top">
       <div className="max-w-screen-xl mr-auto ml-auto h-screen ">
